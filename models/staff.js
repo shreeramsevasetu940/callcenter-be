@@ -1,18 +1,18 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 const staffSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
     trim: true,
   },
-  branch:{
+  branch: {
     type: String,
     required: true,
   },
-  role:{
+  role: {
     type: String,
-    enum:["employee", "admin","manager","couriermanager","teamleader"],
-    default:"employee",
+    enum: ["employee", "admin", "manager", "couriermanager", "teamleader"],
+    default: "employee",
   },
   email: {
     type: String,
@@ -20,11 +20,13 @@ const staffSchema = new mongoose.Schema({
     unique: true,
     trim: true,
     lowercase: true,
+    match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   },
   phone: {
     type: String,
     required: true,
     unique: true,
+    match: /^[0-9]{10}$/, // Assuming it's a 10-digit mobile number
   },
   password: {
     type: String,
@@ -39,25 +41,37 @@ const staffSchema = new mongoose.Schema({
     required: true,
   },
   photo: {
-    type: String, // Store URL or base64 string of the photo
-    required: false,
+    url: { type: String },
+    publicId: { type: String }, // Store publicId for Cloudinary
   },
   joiningDate: {
     type: Date,
     required: true,
   },
-  companyMobileNo:{
+  companyMobileNo: {
     type: String,
     required: false,
   },
-  personalInfo:{
-    AdharCard: { type: String, required: true },
-    PanCard: { type: String, required: true },
-    workExperience:{type: String,required:true},
-    workExperienceDescription:{type: String, required:false},
-    workExperienceCertificate:{type: String, required:false},
-    lastCompanyWhereYouWork:{type: String, required:false},
-    signature: {type: String,required: false}
+  personalInfo: {
+    AdharCard: {
+      url: { type: String },
+      publicId: { type: String },
+    },
+    PanCard: {
+      url: { type: String },
+      publicId: { type: String },
+    },
+    workExperienceCertificate: {
+      url: { type: String },
+      publicId: { type: String },
+    },
+    signature: {
+      url: { type: String },
+      publicId: { type: String },
+    },
+    workExperience: { type: String, required: true },
+    workExperienceDescription: { type: String, required: false },
+    lastCompanyWhereYouWork: { type: String, required: false },
   },
   bankDetail: {
     fullName: { type: String, required: true },
@@ -66,10 +80,10 @@ const staffSchema = new mongoose.Schema({
     branch: { type: String, required: true },
     bankName: { type: String, required: true },
   },
-},{
-    timestamps: true,
+}, {
+  timestamps: true,
 });
 
 const Staff = mongoose.model("Staff", staffSchema);
 
-export default Staff;
+module.exports = Staff;
