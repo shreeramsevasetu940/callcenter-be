@@ -124,10 +124,10 @@ const StaffController = {
     }
   },
 
+  // ✅ login staff
   async loginStaff(req, res) {
     try {
       const { email, password } = req.body;
-
       // Check if staff exists
       const staff = await Staff.findOne({ email });
       if (!staff) {
@@ -149,12 +149,12 @@ const StaffController = {
 
       res.status(200).json({
         message: "Login successful",
-        token,
-        staff: {
+        data: {
           id: staff._id,
           name: staff.name,
           email: staff.email,
           role: staff.role,
+          token
         },
       });
     } catch (error) {
