@@ -12,7 +12,6 @@ const StaffController = {
         const hashedPassword = await bcrypt.hash(password, 10);
   
         const uploadedFiles = {};
-  
         // Upload files to Cloudinary and store public ID
         for (const field in req.files) {
           const result = await cloudinary.uploader.upload(req.files[field][0].path);
@@ -37,6 +36,7 @@ const StaffController = {
         await staff.save();
         res.status(201).json(staff);
       } catch (error) {
+        console.log(error,"VEVweweve")
         res.status(400).json({ error: error.message });
       }
     },

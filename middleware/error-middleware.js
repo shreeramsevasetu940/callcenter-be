@@ -5,7 +5,7 @@ module.exports = function errorMiddleware(err, req, res, next) {
         return res.status(err.status).send({ error: err });
     }
 
-    logger.error(err);
+    console.error(err);
 
     res.status(500).send({
         error: { message: 'Internal Server Error', description: err.message },

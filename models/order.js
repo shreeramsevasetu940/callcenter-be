@@ -41,6 +41,9 @@ const orderSchema = new mongoose.Schema({
     enum: ["Pending", "Dispatch", "Delivered", "Cancelled", "RTO"],
     default: "Pending", // Default status when order is placed
   },
+  deliveryPartner:{
+    type:String
+  }
 }, {
   timestamps: true,
 });

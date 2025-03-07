@@ -5,6 +5,9 @@ const deliverySchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
         ref: 'Order'
   },
+  deliveryPartner:{
+    type:String,
+  },
   trackingId: {
     type: String,
     required: true,
@@ -37,7 +40,7 @@ const deliverySchema = new mongoose.Schema({
     reason: { type: String, required: true },
     date: { type: Date, default: Date.now }, // Default date as current timestamp
     },
-],
+  ],
 },{
     timestamps: true,
 });
