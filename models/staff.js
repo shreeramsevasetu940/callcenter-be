@@ -80,6 +80,11 @@ const staffSchema = new mongoose.Schema({
     branch: { type: String, required: true },
     bankName: { type: String, required: true },
   },
+  status:{
+    type: String,
+    enum: ['active', 'inactive', 'suspend'],
+    default: 'active'
+  }
 }, {
   timestamps: true,
 });

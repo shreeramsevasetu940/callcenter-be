@@ -44,8 +44,38 @@ const StaffController = {
   // ✅ Get All Staff Records
   async getAllStaff(req, res) {
     try {
-      const staffList = await Staff.find();
-      res.status(200).json(staffList);
+      const { page = 1, limit = 25, search = "",status="all"} = req.query;
+      const pageNumber = parseInt(page, 25);
+      const limitNumber = parseInt(limit, 25);
+      // Search query
+      const searchQuery = {
+        ...(search && {
+          $or: [
+            { name: { $regex: search, $options: "i" } },
+            { email: { $regex: search, $options: "i" } },
+            { phone: { $regex: search, $options: "i" } },
+            { address: { $regex: search, $options: "i" } },
+          ],
+        }),
+        ...(status !== "all" && { status }), // Add status filter only if not 'all'
+      };
+  
+
+      // Fetch total count for pagination
+      const totalRecords = await Staff.countDocuments(searchQuery);
+  
+      // Fetch paginated staff data
+      const staffList = await Staff.find(searchQuery)
+        .skip((pageNumber - 1) * limitNumber)
+        .limit(limitNumber);
+  
+      res.status(200).json({
+        totalRecords,
+        totalPages: Math.ceil(totalRecords / limitNumber),
+        currentPage: pageNumber,
+        pageSize: limitNumber,
+        staffList,
+      });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
