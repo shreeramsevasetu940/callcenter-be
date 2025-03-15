@@ -30,6 +30,9 @@ route.put("/:id", upload.fields([
     { name: "personalInfo[signature]", maxCount: 1 }
   ]), StaffController.updateStaff);
 
+// Update Status
+route.patch("/:id/:status", StaffController.updateStaffStatus);
+  
 // Delete Staff
 route.delete("/:id", StaffController.deleteStaff);
 

@@ -190,6 +190,18 @@ const StaffController = {
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
+  },
+
+  async updateStaffStatus(req,res){
+    try {
+      const {id,status}=req.params;
+      const staff = await Staff.findById(id);
+      if (!staff) return res.status(404).json({ message: "Staff not found" });
+      await Staff.findByIdAndUpdate(id,{$set:{status}});
+      res.status(200).json({ message: "Status Update successfully" });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
   }
   
 };
