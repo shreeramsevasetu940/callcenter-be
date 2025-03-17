@@ -5,7 +5,6 @@ const StaffController = require('../controllers/staff')
 const upload = require("../middleware/multer");
 //available routes
 
-// Create Staff
 // Create Staff with file upload
 route.post("/", upload.fields([
     { name: "photo", maxCount: 1 },

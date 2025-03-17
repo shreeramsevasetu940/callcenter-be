@@ -69,7 +69,7 @@ const staffSchema = new mongoose.Schema({
       url: { type: String },
       publicId: { type: String },
     },
-    workExperience: { type: String, required: true },
+    workExperience: { type: String, required: false },
     workExperienceDescription: { type: String, required: false },
     lastCompanyWhereYouWork: { type: String, required: false },
   },
