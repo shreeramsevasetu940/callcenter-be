@@ -50,7 +50,9 @@ const staffSchema = new mongoose.Schema({
   },
   companyMobileNo: {
     type: String,
-    required: false,
+    required: true,
+    // unique: true,
+    match: /^[0-9]{10}$/, // Assuming it's a 10-digit mobile number
   },
   personalInfo: {
     AdharCard: {
@@ -69,7 +71,7 @@ const staffSchema = new mongoose.Schema({
       url: { type: String },
       publicId: { type: String },
     },
-    workExperience: { type: String, required: false },
+    workExperience: { type: Boolean, required: true,default: false},
     workExperienceDescription: { type: String, required: false },
     lastCompanyWhereYouWork: { type: String, required: false },
   },

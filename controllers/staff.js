@@ -278,7 +278,6 @@ async updateStaff(req, res) {
       if (!staff) {
         return res.status(404).json({ message: "Staff not found" });
       }
-
       // Compare passwords
       const isMatch = await bcrypt.compare(password, staff.password);
       if (!isMatch) {
