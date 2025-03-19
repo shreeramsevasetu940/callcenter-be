@@ -142,50 +142,7 @@ const StaffController = {
   },
 
   // ✅ Update Staff and Manage Images
-//   async updateStaff(req, res) {
-//     try {
-//       let staff = await Staff.findById(req.params.id);
-//       if (!staff) return res.status(404).json({ message: "Staff not found" });
-
-//       const uploadedFiles = {};
-
-//       // Upload new files and delete old images
-//       for (const field in req.files) {
-//         if (staff[field]?.publicId) {
-//           await cloudinary.uploader.destroy(staff[field].publicId);
-//         }
-
-//         // Upload new image
-//         const result = await cloudinary.uploader.upload(req.files[field][0].path);
-//         uploadedFiles[field] = { url: result.secure_url, publicId: result.public_id };
-//       }
-
-//       console.log(uploadedFiles["personalInfo[AdharCard]"],'ebriewkvnewoil')
-//       // Merge uploaded files with existing staff data
-//       const updatedData = {
-//         ...req.body,
-//         photo: uploadedFiles["photo"] || staff.photo,
-//         personalInfo: {
-//           ...staff.personalInfo, // Preserve existing personalInfo
-//           ...req.body.personalInfo, // Merge new text data
-//           AdharCard: uploadedFiles["personalInfo[AdharCard]"] || staff.personalInfo.AdharCard,
-//           PanCard: uploadedFiles["personalInfo[PanCard]"] || staff.personalInfo.PanCard,
-//           workExperienceCertificate:
-//             uploadedFiles["personalInfo[workExperienceCertificate]"] || staff.personalInfo.workExperienceCertificate,
-//           signature: uploadedFiles["personalInfo[signature]"] || staff.personalInfo.signature,
-//         },
-//       };
-
-//       staff = await Staff.findByIdAndUpdate(req.params.id, updatedData, { new: true, runValidators: true });
-//       res.status(200).json(staff);
-//     } catch (error) {
-// console.log(error,'vfskjn')
-
-//       res.status(400).json({ error: error.message });
-//     }
-//   },
-
-async updateStaff(req, res) {
+  async updateStaff(req, res) {
   try {
     let staff = await Staff.findById(req.params.id);
     if (!staff) return res.status(404).json({ message: "Staff not found" });
@@ -207,6 +164,7 @@ async updateStaff(req, res) {
     let personalInfoUpdates = {
       ...(staff.personalInfo || {}), // Preserve existing personalInfo
       ...(req.body.personalInfo || {}), // Merge new data
+      workExperience: req.body.personalInfo?.workExperience == "true"
     };
 
     // Manually update specific fields with uploaded files if available
