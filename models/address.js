@@ -1,9 +1,10 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const addressSchema = new mongoose.Schema({
   pincode: {
     type: String,
     required: true,
+    match: /^[0-9]{10}$/,
   },
   village: {
     type: String,
@@ -28,6 +29,7 @@ const addressSchema = new mongoose.Schema({
   phone: {
     type: String,
     required: true,
+    match: /^[0-9]{10}$/,
   },
   landmark: {
     type: String,
@@ -37,7 +39,6 @@ const addressSchema = new mongoose.Schema({
   address: {
     type: String,
     required: true,
-    trim: true,
   }
 },{
     timestamps: true,
@@ -45,4 +46,4 @@ const addressSchema = new mongoose.Schema({
 
 const Address = mongoose.model("Address", addressSchema);
 
-export default Address;
+module.exports = Address;

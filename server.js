@@ -31,7 +31,8 @@ app.get('/',async(req, res) => {
 app.use("/api/staff",  require('./routes/staff'));
 app.use("/api/lead",  require('./routes/lead'));
 app.use("/api/product",  require('./routes/product'));
-
+app.use("/api/order",  require('./routes/order'));
+app.use("/api/address",  require('./routes/address'));
 
 app.use(errorMiddleware);
 const PORT = process.env.PORT || 3000;
