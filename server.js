@@ -30,6 +30,7 @@ app.get('/',async(req, res) => {
 // routes
 app.use("/api/staff",  require('./routes/staff'));
 app.use("/api/lead",  require('./routes/lead'));
+app.use("/api/product",  require('./routes/product'));
 
 
 app.use(errorMiddleware);
