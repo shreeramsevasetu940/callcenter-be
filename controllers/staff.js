@@ -4,43 +4,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
 const StaffController = {
   // ✅ Create Staff with Image Upload
-  // async createStaff(req, res) {
-  //   try {
-  //       const { password, ...otherData } = req.body;
-  
-  //       // Hash the password
-  //       const hashedPassword = await bcrypt.hash(password, 10);
-  
-  //       const uploadedFiles = {};
-  //       // Upload files to Cloudinary and store public ID
-  //       for (const field in req.files) {
-  //         const result = await cloudinary.uploader.upload(req.files[field][0].path);
-  //         uploadedFiles[field] = { url: result.secure_url, publicId: result.public_id };
-  //       }
-  
-  //       // Merge uploaded file URLs with request body
-  //       const staffData = {
-  //         ...otherData,
-  //         password: hashedPassword, // Store hashed password
-  //         photo: uploadedFiles["photo"] || {},
-  //         personalInfo: {
-  //           AdharCard: uploadedFiles["personalInfo[AdharCard]"] || {},
-  //           PanCard: uploadedFiles["personalInfo[PanCard]"] || {},
-  //           workExperienceCertificate: uploadedFiles["personalInfo[workExperienceCertificate]"] || {},
-  //           signature: uploadedFiles["personalInfo[signature]"] || {},
-  //           ...req.body.personalInfo,
-  //         },
-  //       };
-  
-  //       const staff = new Staff(staffData);
-  //       await staff.save();
-  //       res.status(201).json(staff);
-  //     } catch (error) {
-  //       console.log(error,"VEVweweve")
-  //       res.status(400).json({ error: error.message });
-  //     }
-  //   },
-
   async createStaff(req, res) {
     const uploadedPublicIds = []; // To keep track of uploaded file public IDs
     try {
@@ -89,7 +52,6 @@ const StaffController = {
     }
   },
   
-
   // ✅ Get All Staff Records
   async getAllStaff(req, res) {
     try {

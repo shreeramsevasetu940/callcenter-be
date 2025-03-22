@@ -1,28 +1,29 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const leadSchema = new mongoose.Schema({
-source:{
-    type: String,
-    enum:["facebook","google","youtube","instagram","whatsapp","other"],
-    required: true,
-},
+ staffId:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Staff',
+    required: true
+  },
 name: {
     type: String,
-    required: true,
+    // required: true,
     trim: true,
 },
 phone: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
     match: /^[0-9]{10}$/, // Assuming it's a 10-digit mobile number
 },
 address: {
     type: String,
-    required: true,
+    // required: true,
 },
 remark: [
     {
+    _id:false,
     reason: { type: String, required: true },
     date: { type: Date, default: Date.now }, // Default date as current timestamp
     },
@@ -33,4 +34,4 @@ timestamps: true,
 
 const Lead = mongoose.model("Lead", leadSchema);
 
-export default Lead;
+module.exports = Lead;

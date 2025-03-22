@@ -27,21 +27,9 @@ app.get('/',async(req, res) => {
     }
   });
 
-  app.post('/test',async(req, res) => {
-    try {
-      res.send("ok11");
-    } catch (error) {
-      console.error(error)
-      res.send("failed");
-    }
-  });
-  
-
-
 // routes
 app.use("/api/staff",  require('./routes/staff'));
-// app.use('/api/category', require('./routes/category.routes'))
-// app.use('/api/receipt', require('./routes/receipt.routes'))
+app.use("/api/lead",  require('./routes/lead'));
 
 
 app.use(errorMiddleware);
