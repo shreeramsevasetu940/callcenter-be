@@ -14,7 +14,6 @@ name: {
 phone: {
     type: String,
     required: true,
-    // unique: true,
     match: /^[0-9]{10}$/, // Assuming it's a 10-digit mobile number
 },
 address: {
