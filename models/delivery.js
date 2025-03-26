@@ -29,7 +29,8 @@ const deliverySchema = new mongoose.Schema({
   },
   feedbackCallDays: {
     type: Number,
-    required: true
+    // required: true,
+    default:10
   },
   feedbackCallDate: {
     type: Date,

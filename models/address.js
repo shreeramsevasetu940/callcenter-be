@@ -4,7 +4,7 @@ const addressSchema = new mongoose.Schema({
   pincode: {
     type: String,
     required: true,
-    match: /^[0-9]{10}$/,
+    match: /^[0-9]{6}$/,
   },
   village: {
     type: String,
