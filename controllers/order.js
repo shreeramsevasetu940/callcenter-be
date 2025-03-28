@@ -16,8 +16,8 @@ const OrderController = {
     async getAllOrders(req, res) {
         try {
             const { page = 1, limit = 25, search = ""} = req.query;
-            const pageNumber = parseInt(page, 25);
-            const limitNumber = parseInt(limit, 25);
+            const pageNumber = parseInt(page)||25;
+            const limitNumber = parseInt(limit)||25;
             // Search query
             const searchQuery = {
             ...(search && {
@@ -33,7 +33,7 @@ const OrderController = {
             const totalRecords = await Order.countDocuments(searchQuery);
         
             // Fetch paginated Order data
-            const orderList = await Order.find(searchQuery).populate("product").populate("address").populate("staffId")
+            const orderList = await Order.find(searchQuery).populate("products").populate("address").populate("staffId")
               .skip((pageNumber - 1) * limitNumber)
             .limit(limitNumber);
         
@@ -52,7 +52,7 @@ const OrderController = {
     // ✅ Get Single Order
     async getOrderById(req, res) {
         try {
-            const order = await Order.findById(req.params.id).populate("product.name").populate("address").populate("staffId");
+            const order = await Order.findById(req.params.id).populate("products.name").populate("address").populate("staffId");
             if (!order) return res.status(404).json({ success: false, error: "Order not found" });
             res.status(200).json({ success: true, data: order });
         } catch (error) {

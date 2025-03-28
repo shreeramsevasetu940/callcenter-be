@@ -17,8 +17,8 @@ const LeadController = {
     async getAllLeads(req, res) {
         try {
             const { page = 1, limit = 25, search = ""} = req.query;
-            const pageNumber = parseInt(page, 25);
-            const limitNumber = parseInt(limit, 25);
+            const pageNumber = parseInt(page)||25;
+            const limitNumber = parseInt(limit)||25;
             // Search query
             const searchQuery = {
             ...(search && {

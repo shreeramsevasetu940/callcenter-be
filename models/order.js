@@ -9,8 +9,9 @@ const orderSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  product: [
+  products: [
     {
+      _id:false,
       id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product", // Reference to Product model
@@ -24,6 +25,10 @@ const orderSchema = new mongoose.Schema({
         type: Number,
         required: true,
         min: 1, // Minimum quantity should be 1
+      },
+      price: {
+        type: Number,
+        required: true,
       }
     }
   ],
@@ -46,7 +51,8 @@ const orderSchema = new mongoose.Schema({
     default: "Pending", // Default status when order is placed
   },
   deliveryPartner:{
-    type:String
+    type:String,
+    enum: ["Delhivery", "I-Think","Indian-Post","Area-Delivery"]
   }
 }, {
   timestamps: true,
